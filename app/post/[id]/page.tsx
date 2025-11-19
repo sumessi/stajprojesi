@@ -2,6 +2,7 @@
 
 import { useEffect, useState } from "react";
 import { useParams, useRouter } from "next/navigation";
+import FavoriButonu from "@/app/components/FavoriButonu"; // Path'i projenize göre ayarlayın
 
 interface Post {
   userId: number;
@@ -67,10 +68,16 @@ export default function UserPostsPage() {
           {posts.map((post) => (
             <div
               key={post.id}
-              className="bg-white/10 hover:bg-white/20 backdrop-blur-sm p-6 rounded-4xl shadow-lg transition-all"
+              className="relative bg-white/10 hover:bg-white/20 backdrop-blur-sm p-6 rounded-2xl shadow-lg transition-all"
             >
-              <h2 className="text-lg font-semibold mb-2">{post.title}</h2>
-              <p className="text-sm text-white/80">{post.body}</p>
+              {/* Favori Butonu - Sol Üst Köşe */}
+              <FavoriButonu id={post.id} />
+              
+              {/* Post İçeriği */}
+              <div className="mt-8">
+                <h2 className="text-lg font-semibold mb-2">{post.title}</h2>
+                <p className="text-sm text-white/80">{post.body}</p>
+              </div>
             </div>
           ))}
         </div>

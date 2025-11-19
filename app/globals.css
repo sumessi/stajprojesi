@@ -1,3 +1,9 @@
+html, body {
+  overflow-x: hidden;
+  width: 100%;
+  max-width: 100vw;
+}
+
 @import "tailwindcss";
 @import "tw-animate-css";
 
@@ -164,3 +170,29 @@
     --sidebar-ring: oklch(0.439 0 0);
   }
 }
+
+/* Sidebar arkaplan şeffaflığı */
+[data-sidebar="sidebar"] {
+  background: transparent !important;
+}
+
+[data-slot="sidebar-inner"] {
+  background: rgba(255, 255, 255, 0.1) !important;
+  backdrop-filter: blur(12px);
+}
+
+/* Sol boşluğu da saydam yap */
+[data-slot="sidebar-gap"] {
+  background: transparent !important;
+}
+
+/* Sidebar wrapper */
+.group\/sidebar-wrapper {
+  background: transparent !important;
+}
+
+/* Peer element (sidebar yanındaki alan) */
+.peer {
+  background: transparent !important;
+}
+

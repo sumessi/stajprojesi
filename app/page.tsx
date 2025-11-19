@@ -2,29 +2,16 @@
 
 import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
-import dynamic from "next/dynamic";
 
 import { usePerformanceOptimization } from "@/app/components/hooks/usePerformanceOptimization";
 
-import UserIdList from "@/app/components/UserIdList";
-import SearchHistoryModal from "@/app/components/SearchHistoryModal";
-import FavoritesModal from "@/app/components/FavoritesModal";
 import SearchSection from "@/app/components/SearchSection";
 import ResultsSection from "@/app/components/ResultsSection";
 import Footer from "@/app/components/Footer";
 import { usePosts } from "@/app/components/hooks/usePosts";
 import { useMatchedUsers } from "@/app/components/useMatchedUsers";
 import LoadingScreen from "@/app/components/LoadingScreen";
-
-// Lazy load edilen bileşen
-const UserCard = dynamic(() => import("@/app/components/UserCard"), {
-  loading: () => (
-    <div className="rounded-2xl border-2 border-zinc-300/60 bg-zinc-100 dark:bg-zinc-800 shadow-lg p-8 min-h-[180px] flex items-center justify-center animate-pulse">
-      <div className="text-zinc-400">Yükleniyor...</div>
-    </div>
-  ),
-  ssr: false,
-});
+import MenuAccordion from "@/app/components/MenuAccordion";
 
 // LocalStorage hook'u
 function useLocalStorage<T>(key: string, initialValue: T) {
@@ -56,10 +43,6 @@ export default function Page() {
   // --- State tanımlamaları ---
   const [searchTerm, setSearchTerm] = useState("");
   const [activeSearch, setActiveSearch] = useState("");
-  const [showSidebar, setShowSidebar] = useState(false);
-  const [showUserIds, setShowUserIds] = useState(false);
-  const [showHistory, setShowHistory] = useState(false);
-  const [showFavorites, setShowFavorites] = useState(false);
   const [history, setHistory] = useLocalStorage<string[]>("searchHistory", []);
   const [favorites, setFavorites] = useLocalStorage<number[]>("favorites", []);
   const [searchField] = useLocalStorage<"title" | "id" | "body">("searchField", "title");
@@ -77,6 +60,11 @@ export default function Page() {
     setSearchTerm("");
     setActiveSearch("");
   };
+  const handleHistorySelect = (term: string) => {
+    setSearchTerm(term);
+    setActiveSearch(term);
+  };
+  const handleNavigateToUser = (userId: number) => router.push(`/post/${userId}`);
 
   // --- Debounce edilmiş arama ---
   useEffect(() => {
@@ -96,43 +84,37 @@ export default function Page() {
 
   // --- Ana render ---
   return (
-    <main className="relative min-h-screen animated-gradient transition-colors">
-      
-      {/* Hamburger Menü */}
-      
-      {/* Sidebar */}
-      
-      {/* Modallar */}
-      <UserIdList posts={posts} showUserIds={showUserIds} setShowUserIds={setShowUserIds} />
-      <SearchHistoryModal
-        showHistory={showHistory}
-        setShowHistory={setShowHistory}
-        history={history}
-        removeHistoryItem={removeHistoryItem}
-        setSearchTerm={setSearchTerm}
-        setActiveSearch={setSearchTerm}
-      />
-      <FavoritesModal
-        showFavorites={showFavorites}
-        setShowFavorites={setShowFavorites}
-        favorites={favorites}
-        removeFavorite={removeFavorite}
-      />
+    <main className="relative animated-gradient transition-colors min-h-screen w-full overflow-x-hidden">
+      <div className="w-full min-h-screen flex">
+        {/* Sol Menü - Fixed */}
+        <aside className="fixed left-0 top-0 h-screen w-[320px] z-40">
+          <MenuAccordion
+            posts={posts}
+            history={history}
+            favorites={favorites}
+            onReload={reloadPosts}
+            onClearHistory={clearHistory}
+            onSelectHistory={handleHistorySelect}
+            onNavigateToUser={handleNavigateToUser}
+            removeHistoryItem={removeHistoryItem}
+            removeFavorite={removeFavorite}
+          />
+        </aside>
 
-      {/* Arama Alanı */}
-      <SearchSection
-        searchTerm={searchTerm}
-        setSearchTerm={setSearchTerm}
-        handleClearSearch={handleClearSearch}
-        searchField={searchField}
-        error={error || undefined}
-      />
+        {/* Ana İçerik - Sol taraftan itilmiş */}
+        <section className="flex-1 min-h-screen flex flex-col justify-center ml-[320px] w-full max-w-[calc(100vw-320px)]">
+          <SearchSection
+            searchTerm={searchTerm}
+            setSearchTerm={setSearchTerm}
+            handleClearSearch={handleClearSearch}
+            searchField={searchField}
+            error={error || undefined}
+          />
 
-      {/* Arama Sonuçları */}
-      <ResultsSection activeSearch={activeSearch} matchedUsers={matchedUsers} />
-
-      {/* Footer */}
-      <Footer />
+          <ResultsSection activeSearch={activeSearch} matchedUsers={matchedUsers} />
+          <Footer />
+        </section>
+      </div>
     </main>
   );
 }
