@@ -1,17 +1,14 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import { useRouter } from "next/navigation";
 
-import { usePerformanceOptimization } from "@/app/components/hooks/usePerformanceOptimization";
+import { usePerformanceOptimization } from "@/hooks/usePerformanceOptimization";
 
-import SearchSection from "@/app/components/SearchSection";
-import ResultsSection from "@/app/components/ResultsSection";
-import Footer from "@/app/components/Footer";
-import { usePosts } from "@/app/components/hooks/usePosts";
-import { useMatchedUsers } from "@/app/components/useMatchedUsers";
-import LoadingScreen from "@/app/components/LoadingScreen";
-import MenuAccordion from "@/app/components/MenuAccordion";
+import SearchSection from "@/components/SearchSection";
+import { usePosts } from "@/hooks/usePosts";
+import { useMatchedUsers } from "@/components/useMatchedUsers";
+import LoadingScreen from "@/components/LoadingScreen";
 
 // LocalStorage hook'u
 function useLocalStorage<T>(key: string, initialValue: T) {
@@ -38,13 +35,40 @@ export default function Page() {
   const router = useRouter();
 
   // --- Post Hook ---
-  const { posts, loading, error, reloadPosts } = usePosts();
+  const { posts, loading, error } = usePosts();
+
+  // --- Kullanıcı verileri (JSONPlaceholder /users) ---
+  const [usersById, setUsersById] = useState<
+    Record<number, { name: string; username: string; email: string }>
+  >({});
+
+  useEffect(() => {
+    const fetchUsers = async () => {
+      try {
+        const res = await fetch("https://jsonplaceholder.typicode.com/users");
+        if (!res.ok) return;
+        const data: any[] = await res.json();
+        const map: Record<number, { name: string; username: string; email: string }> = {};
+        for (const u of data) {
+          map[u.id] = {
+            name: u.name,
+            username: u.username,
+            email: u.email,
+          };
+        }
+        setUsersById(map);
+      } catch {
+        // sessizce geç
+      }
+    };
+
+    fetchUsers();
+  }, []);
 
   // --- State tanımlamaları ---
   const [searchTerm, setSearchTerm] = useState("");
   const [activeSearch, setActiveSearch] = useState("");
   const [history, setHistory] = useLocalStorage<string[]>("searchHistory", []);
-  const [favorites, setFavorites] = useLocalStorage<number[]>("favorites", []);
   const [searchField] = useLocalStorage<"title" | "id" | "body">("searchField", "title");
   const [sortBy] = useLocalStorage<"userId" | "id">("sortBy", "userId");
 
@@ -54,8 +78,6 @@ export default function Page() {
 
   // --- Geçmiş ve favori işlemleri ---
   const clearHistory = () => setHistory([]);
-  const removeHistoryItem = (i: string) => setHistory(p => p.filter(x => x !== i));
-  const removeFavorite = (postId: number) => setFavorites(p => p.filter(id => id !== postId));
   const handleClearSearch = () => {
     setSearchTerm("");
     setActiveSearch("");
@@ -65,6 +87,19 @@ export default function Page() {
     setActiveSearch(term);
   };
   const handleNavigateToUser = (userId: number) => router.push(`/post/${userId}`);
+
+  const uniqueUserIds = useMemo(
+    () => Array.from(new Set(posts.map((post) => post.userId))).sort((a, b) => a - b),
+    [posts]
+  );
+
+  const postsPerUser = useMemo(() => {
+    const counts: Record<number, number> = {};
+    for (const post of posts) {
+      counts[post.userId] = (counts[post.userId] || 0) + 1;
+    }
+    return counts;
+  }, [posts]);
 
   // --- Debounce edilmiş arama ---
   useEffect(() => {
@@ -84,36 +119,22 @@ export default function Page() {
 
   // --- Ana render ---
   return (
-    <main className="relative animated-gradient transition-colors min-h-screen w-full overflow-x-hidden">
-      <div className="w-full min-h-screen flex">
-        {/* Sol Menü - Fixed */}
-        <aside className="fixed left-0 top-0 h-screen w-[320px] z-40">
-          <MenuAccordion
-            posts={posts}
-            history={history}
-            favorites={favorites}
-            onReload={reloadPosts}
-            onClearHistory={clearHistory}
-            onSelectHistory={handleHistorySelect}
-            onNavigateToUser={handleNavigateToUser}
-            removeHistoryItem={removeHistoryItem}
-            removeFavorite={removeFavorite}
-          />
-        </aside>
-
-        {/* Ana İçerik - Sol taraftan itilmiş */}
-        <section className="flex-1 min-h-screen flex flex-col justify-center ml-[320px] w-full max-w-[calc(100vw-320px)]">
-          <SearchSection
-            searchTerm={searchTerm}
-            setSearchTerm={setSearchTerm}
-            handleClearSearch={handleClearSearch}
-            searchField={searchField}
-            error={error || undefined}
-          />
-
-          <ResultsSection activeSearch={activeSearch} matchedUsers={matchedUsers} />
-          <Footer />
-        </section>
+    <main className="min-h-screen w-full overflow-x-hidden pb-16">
+      <div className="mx-auto flex w-full max-w-5xl flex-col gap-10">
+        <SearchSection
+          searchTerm={searchTerm}
+          setSearchTerm={setSearchTerm}
+          handleClearSearch={handleClearSearch}
+          error={error || undefined}
+          userIds={uniqueUserIds}
+          matchedUsers={matchedUsers}
+          postsPerUser={postsPerUser}
+          onNavigateToUser={handleNavigateToUser}
+          history={history}
+          onHistorySelect={handleHistorySelect}
+          onClearHistory={clearHistory}
+          usersById={usersById}
+        />
       </div>
     </main>
   );

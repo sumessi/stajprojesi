@@ -40,7 +40,7 @@ export default function FavoriButonu({ id, className = "" }: FavoriButonuProps) 
   return (
     <button
       onClick = {toggleFavori}
-      className = {`absolute top-3 left-3 p-2 rounded-full bg-white dark:bg-zinc-800 shadow-md hover:shadow-lg transition-all z-10 ${className}`}
+      className = {`absolute top-3 left-3 p-2 rounded-full bg-[#f8f5f1] dark:bg-zinc-800 shadow-md hover:shadow-lg transition-all z-10 ${className}`}
       aria-label = "Favorilere ekle"
     >
       <Heart

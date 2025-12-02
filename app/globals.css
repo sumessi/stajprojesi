@@ -51,7 +51,7 @@ html, body {
 
 /* Arka plan renk geçiş animasyonu */
 .animated-gradient {
-  background: linear-gradient(-45deg, #6ee7b7, #3b82f6, #9333ea, #f43f5e);
+  background: linear-gradient(-45deg, #1e1e1e);
   background-size: 400% 400%;
   animation: gradientFlow 15s ease infinite;
 }
@@ -95,13 +95,13 @@ html, body {
   --chart-4: oklch(0.828 0.189 84.429);
   --chart-5: oklch(0.769 0.188 70.08);
   --sidebar: hsl(0 0% 98%);
-  --sidebar-foreground: hsl(240 5.3% 26.1%);
+  --sidebar-foreground: hsl(0, 0%, 0%);
   --sidebar-primary: hsl(240 5.9% 10%);
   --sidebar-primary-foreground: hsl(0 0% 98%);
   --sidebar-accent: hsl(240 4.8% 95.9%);
   --sidebar-accent-foreground: hsl(240 5.9% 10%);
   --sidebar-border: hsl(220 13% 91%);
-  --sidebar-ring: hsl(217.2 91.2% 59.8%);
+  --sidebar-ring: hsl(0, 0%, 100%);
 }
 
 .dark {
@@ -128,14 +128,14 @@ html, body {
   --chart-3: oklch(0.769 0.188 70.08);
   --chart-4: oklch(0.627 0.265 303.9);
   --chart-5: oklch(0.645 0.246 16.439);
-  --sidebar: hsl(240 5.9% 10%);
+  --sidebar: hsl(0, 0%, 0%);
   --sidebar-foreground: hsl(240 4.8% 95.9%);
-  --sidebar-primary: hsl(224.3 76.3% 48%);
+  --sidebar-primary: hsl(0, 0%, 100%);
   --sidebar-primary-foreground: hsl(0 0% 100%);
-  --sidebar-accent: hsl(240 3.7% 15.9%);
+  --sidebar-accent: hsl(0, 0%, 0%);
   --sidebar-accent-foreground: hsl(240 4.8% 95.9%);
-  --sidebar-border: hsl(240 3.7% 15.9%);
-  --sidebar-ring: hsl(217.2 91.2% 59.8%);
+  --sidebar-border: hsl(0, 0%, 0%);
+  --sidebar-ring: hsl(0, 0%, 100%);
 }
 
 @layer base {
@@ -177,7 +177,7 @@ html, body {
 }
 
 [data-slot="sidebar-inner"] {
-  background: rgba(255, 255, 255, 0.1) !important;
+  background: rgba(0, 0, 0, 0.1) !important;
   backdrop-filter: blur(12px);
 }
 
@@ -196,3 +196,14 @@ html, body {
   background: transparent !important;
 }
 
+/* Scrollbar gizleme */
+@layer utilities {
+  .scrollbar-hide::-webkit-scrollbar {
+    display: none;
+  }
+  
+  .scrollbar-hide {
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+  }
+}

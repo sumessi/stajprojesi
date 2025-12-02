@@ -1,7 +1,7 @@
 "use client";
 
 import { useMemo } from "react";
-import { Post } from "@/app/components/hooks/usePosts";
+import { Post } from "@/hooks/usePosts";
 
 export function useMatchedUsers(
   posts: Post[],
