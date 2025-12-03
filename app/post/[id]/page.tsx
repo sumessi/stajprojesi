@@ -2,7 +2,7 @@
 
 import { useEffect, useState } from "react";
 import { useParams, useRouter } from "next/navigation";
-import FavoriButonu from "@/components/FavoriButonu"; // Path'i projenize göre ayarlayın
+import FavoriButonu from "@/components/FavoriButonu";
 
 interface Post {
   userId: number;
@@ -44,18 +44,18 @@ export default function UserPostsPage() {
 
   if (loading)
     return (
-      <div className="min-h-screen flex items-center justify-center text-white bg-gradient-to-br bg-black">
+      <div className="min-h-screen flex items-center justify-center bg-background text-foreground">
         Yükleniyor...
       </div>
     );
 
   if (error)
     return (
-      <div className="min-h-screen flex flex-col items-center justify-center text-white bg-gradient-to-br bg-black">
+      <div className="min-h-screen flex flex-col items-center justify-center bg-background text-foreground">
         <p>Bir hata oluştu: {error}</p>
         <button
           onClick={() => router.push("/")}
-          className="mt-4 bg-white hover:bg-white px-4 py-2 rounded-lg"
+          className="mt-4 bg-primary text-primary-foreground hover:bg-primary/90 px-4 py-2 rounded-lg transition"
         >
           Ana Sayfaya Dön
         </button>
@@ -63,30 +63,32 @@ export default function UserPostsPage() {
     );
 
   return (
-    <div className="min-h-screen bg-gradient-to-br bg-[#1e1e1e] p-8">
-      <h1 className="text-2xl font-bold mb-6 text-[#f8f5f1]">Kullanıcı: {name}'in Gönderileri</h1>
+    <div className="min-h-screen bg-background p-8">
+      <h1 className="text-2xl font-bold mb-6 text-foreground">
+        Kullanıcı: {name}'in Gönderileri
+      </h1>
 
       {posts.length === 0 ? (
-        <p>Bu kullanıcıya ait gönderi bulunamadı.</p>
+        <p className="text-muted-foreground">Bu kullanıcıya ait gönderi bulunamadı.</p>
       ) : (
         <div className="grid sm:grid-cols-1 lg:grid-cols-2 gap-6">
           {posts.map((post) => (
             <div
               key={post.id}
-              className="relative bg-[#262626] hover:bg-white/20 backdrop-blur-sm p-6 rounded-2xl shadow-lg transition-all"
+              className="relative bg-card border border-border hover:bg-accent backdrop-blur-sm p-6 rounded-2xl shadow-lg transition-all"
             >
               {/* Favori Butonu - Sol Üst Köşe */}
               <FavoriButonu id={post.id} />
               
               {/* Post İçeriği */}
               <div className="mt-8">
-                <div className="mb-1 flex items-center justify-between text-xs text-[#9e9e9e]">
+                <div className="mb-1 flex items-center justify-between text-xs text-muted-foreground">
                   <span>Post #{post.id}</span>
                 </div>
-                <h2 className="text-lg font-semibold mb-2 text-[#ededed]">
+                <h2 className="text-lg font-semibold mb-2 text-card-foreground">
                   {post.title}
                 </h2>
-                <p className="text-sm text-[#b3b3b3]">{post.body}</p>
+                <p className="text-sm text-muted-foreground">{post.body}</p>
               </div>
             </div>
           ))}
@@ -95,3 +97,4 @@ export default function UserPostsPage() {
     </div>
   );
 }
+

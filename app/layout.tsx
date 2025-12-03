@@ -1,9 +1,8 @@
 import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
-import Footer from "@/components/Footer"; // ⭐ Footer import edildi
-import { AppSidebar } from "@/components/app-sidebar";
-import { SidebarInset, SidebarProvider, SidebarTrigger } from "@/components/ui/sidebar";
+import { ThemeProvider } from "@/components/theme-provider";
+import { LayoutContent } from "@/components/LayoutContent";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -26,24 +25,13 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="tr">
+    <html lang="tr" suppressHydrationWarning>
       <body
-        className={`${geistSans.variable} ${geistMono.variable} antialiased min-h-screen overflow-x-hidden bg-transparent`}
+        className={`${geistSans.variable} ${geistMono.variable} antialiased min-h-screen overflow-x-hidden`}
       >
-        <SidebarProvider defaultOpen={true}>
-          <div className="flex min-h-screen w-full bg-[#1e1e1e] text-white">
-            <AppSidebar />
-            <SidebarInset className="flex min-h-screen w-full flex-1 flex-col bg-transparent px-4 py-4 md:px-10">
-              <div className="sticky top-2 z-30 mb-4 flex items-center gap-3 pl-1">
-                <SidebarTrigger className="rounded-full bg-white/10 p-2 text-white shadow-sm hover:bg-white/20" />
-              </div>
-              <div className="flex-1">{children}</div>
-              <div className="-mx-4 mt-4 md:-mx-10">
-                <Footer />
-              </div>
-            </SidebarInset>
-          </div>
-        </SidebarProvider>
+        <ThemeProvider>
+          <LayoutContent>{children}</LayoutContent>
+        </ThemeProvider>
       </body>
     </html>
   );

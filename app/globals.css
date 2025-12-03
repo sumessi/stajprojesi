@@ -8,6 +8,7 @@ html, body {
 @import "tw-animate-css";
 
 @custom-variant dark (&:is(.dark *));
+@custom-variant light (&:is(.light *));
 
 @theme inline {
   --color-background: var(--background);
@@ -49,14 +50,12 @@ html, body {
   --radius-xl: calc(var(--radius) + 4px);
 }
 
-/* Arka plan renk geçiş animasyonu */
 .animated-gradient {
   background: linear-gradient(-45deg, #1e1e1e);
   background-size: 400% 400%;
   animation: gradientFlow 15s ease infinite;
 }
 
-/* Yavaş geçiş efekti */
 @keyframes gradientFlow {
   0% {
     background-position: 0% 50%;
@@ -73,7 +72,7 @@ html, body {
   --radius: 0.625rem;
   --background: oklch(1 0 0);
   --foreground: oklch(0.145 0 0);
-  --card: oklch(1 0 0);
+  --card: oklch(0.98 0 0);
   --card-foreground: oklch(0.145 0 0);
   --popover: oklch(1 0 0);
   --popover-foreground: oklch(0.145 0 0);
@@ -81,14 +80,48 @@ html, body {
   --primary-foreground: oklch(0.985 0 0);
   --secondary: oklch(0.97 0 0);
   --secondary-foreground: oklch(0.205 0 0);
-  --muted: oklch(0.97 0 0);
-  --muted-foreground: oklch(0.556 0 0);
-  --accent: oklch(0.97 0 0);
-  --accent-foreground: oklch(0.205 0 0);
+  --muted: oklch(0.96 0 0);
+  --muted-foreground: oklch(0.5 0 0);
+  --accent: oklch(0.95 0 0);
+  --accent-foreground: oklch(0.145 0 0);
   --destructive: oklch(0.577 0.245 27.325);
-  --border: oklch(0.922 0 0);
-  --input: oklch(0.922 0 0);
-  --ring: oklch(0.708 0 0);
+  --border: oklch(0.9 0 0);
+  --input: oklch(0.92 0 0);
+  --ring: oklch(0.5 0 0);
+  --chart-1: oklch(0.646 0.222 41.116);
+  --chart-2: oklch(0.6 0.118 184.704);
+  --chart-3: oklch(0.398 0.07 227.392);
+  --chart-4: oklch(0.828 0.189 84.429);
+  --chart-5: oklch(0.769 0.188 70.08);
+  --sidebar: hsl(0 0% 98%);
+  --sidebar-foreground: hsl(0, 0%, 0%);
+  --sidebar-primary: hsl(240 5.9% 10%);
+  --sidebar-primary-foreground: hsl(0 0% 98%);
+  --sidebar-accent: hsl(240 4.8% 95.9%);
+  --sidebar-accent-foreground: hsl(240 5.9% 10%);
+  --sidebar-border: hsl(220 13% 91%);
+  --sidebar-ring: hsl(0, 0%, 100%);
+}
+
+.light {
+  --background: oklch(1 0 0);
+  --foreground: oklch(0.145 0 0);
+  --card: oklch(0.98 0 0);
+  --card-foreground: oklch(0.145 0 0);
+  --popover: oklch(1 0 0);
+  --popover-foreground: oklch(0.145 0 0);
+  --primary: oklch(0.205 0 0);
+  --primary-foreground: oklch(0.985 0 0);
+  --secondary: oklch(0.97 0 0);
+  --secondary-foreground: oklch(0.205 0 0);
+  --muted: oklch(0.96 0 0);
+  --muted-foreground: oklch(0.5 0 0);
+  --accent: oklch(0.95 0 0);
+  --accent-foreground: oklch(0.145 0 0);
+  --destructive: oklch(0.577 0.245 27.325);
+  --border: oklch(0.9 0 0);
+  --input: oklch(0.92 0 0);
+  --ring: oklch(0.5 0 0);
   --chart-1: oklch(0.646 0.222 41.116);
   --chart-2: oklch(0.6 0.118 184.704);
   --chart-3: oklch(0.398 0.07 227.392);
@@ -143,12 +176,23 @@ html, body {
     @apply border-border outline-ring/50;
   }
   body {
-    @apply bg-background text-foreground;
+    @apply bg-background text-foreground transition-colors duration-300;
   }
 }
 
 @layer base {
   :root {
+    --sidebar: oklch(0.985 0 0);
+    --sidebar-foreground: oklch(0.145 0 0);
+    --sidebar-primary: oklch(0.205 0 0);
+    --sidebar-primary-foreground: oklch(0.985 0 0);
+    --sidebar-accent: oklch(0.97 0 0);
+    --sidebar-accent-foreground: oklch(0.205 0 0);
+    --sidebar-border: oklch(0.922 0 0);
+    --sidebar-ring: oklch(0.708 0 0);
+  }
+
+  .light {
     --sidebar: oklch(0.985 0 0);
     --sidebar-foreground: oklch(0.145 0 0);
     --sidebar-primary: oklch(0.205 0 0);
@@ -181,19 +225,79 @@ html, body {
   backdrop-filter: blur(12px);
 }
 
-/* Sol boşluğu da saydam yap */
+.light [data-slot="sidebar-inner"] {
+  background: rgba(255, 255, 255, 0.8) !important;
+  backdrop-filter: blur(12px);
+}
+
 [data-slot="sidebar-gap"] {
   background: transparent !important;
 }
 
-/* Sidebar wrapper */
 .group\/sidebar-wrapper {
   background: transparent !important;
 }
 
-/* Peer element (sidebar yanındaki alan) */
 .peer {
   background: transparent !important;
+}
+
+/* ✨ YUMUŞAK SIDEBAR ANIMASYONU - DÜZELTİLMİŞ ✨ */
+
+/* Sidebar wrapper ve tüm parent elementler */
+.group[data-collapsible="offcanvas"],
+.group[data-collapsible="icon"],
+.group\/sidebar-wrapper {
+  transition: all 400ms ease-in-out !important;
+}
+
+/* Ana sidebar - left pozisyonu ile kayma */
+[data-sidebar="sidebar"] {
+  transition: left 400ms ease-in-out, 
+              transform 400ms ease-in-out,
+              margin-left 400ms ease-in-out,
+              opacity 400ms ease-in-out !important;
+}
+
+/* Sidebar kapalıyken */
+[data-state="collapsed"] [data-sidebar="sidebar"] {
+  left: -280px !important;
+}
+
+/* Sidebar açıkken */
+[data-state="expanded"] [data-sidebar="sidebar"] {
+  left: 0 !important;
+}
+
+/* İçerik animasyonlarını kaldır (spring efektini önlemek için) */
+[data-sidebar="sidebar"] > *,
+[data-sidebar="header"],
+[data-sidebar="content"] {
+  transition: none !important;
+}
+
+/* SidebarInset yumuşak genişleme */
+[data-sidebar="inset"] {
+  transition: margin-left 400ms ease-in-out,
+              width 400ms ease-in-out;
+}
+
+/* Sidebar trigger butonu animasyonu */
+button[data-sidebar="trigger"] {
+  transition: all 200ms ease-in-out;
+}
+
+button[data-sidebar="trigger"]:hover {
+  transform: scale(1.05);
+}
+
+button[data-sidebar="trigger"]:active {
+  transform: scale(0.95);
+}
+
+/* Accordion animasyonları */
+[data-radix-accordion-content] {
+  transition: height 300ms ease-in-out;
 }
 
 /* Scrollbar gizleme */
@@ -206,4 +310,16 @@ html, body {
     -ms-overflow-style: none;
     scrollbar-width: none;
   }
+}
+
+/* Sidebar için özel class ekleyelim */
+.sidebar-slide-transition {
+  transition: transform 400ms ease-in-out !important;
+}
+
+/* Genel class'lar */
+* {
+  transition-property: background-color, border-color, color;
+  transition-duration: 200ms;
+  transition-timing-function: ease-in-out;
 }

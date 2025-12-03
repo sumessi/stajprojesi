@@ -112,7 +112,7 @@ export default function Page() {
   }, [debouncedSearchTerm]);
 
   // --- Arama sonucu hesaplama ---
-  const matchedUsers = useMatchedUsers(posts, activeSearch, searchField, sortBy);
+  const matchedUsers = useMatchedUsers(posts, activeSearch, searchField, sortBy, usersById);
 
   // --- Yüklenme ekranı ---
   if (loading) return <LoadingScreen />;
