@@ -2,7 +2,7 @@
 
 import * as React from 'react';
 import { BellIcon } from 'lucide-react';
-import { Button } from '@repo/shadcn-ui/components/ui/button';
+import { Button } from '@/components/ui/button';
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -10,8 +10,8 @@ import {
   DropdownMenuLabel,
   DropdownMenuSeparator,
   DropdownMenuTrigger,
-} from '@repo/shadcn-ui/components/ui/dropdown-menu';
-import { Badge } from '@repo/shadcn-ui/components/ui/badge';
+} from '@/components/ui/dropdown-menu';
+import { Badge } from '@/components/ui/badge';
 
 export interface NotificationMenuProps {
   notifications?: Array<{

@@ -9,6 +9,12 @@ html, body {
 
 @custom-variant dark (&:is(.dark *));
 @custom-variant light (&:is(.light *));
+@custom-variant oled (&:is(.oled *));
+@custom-variant soft (&:is(.soft *));
+@custom-variant rose (&:is(.rose *));
+@custom-variant sea (&:is(.sea *));
+@custom-variant sun (&:is(.sun *));
+@custom-variant fire (&:is(.fire *));
 
 @theme inline {
   --color-background: var(--background);
@@ -68,6 +74,7 @@ html, body {
   }
 }
 
+/* ==================== DEFAULT THEME (Varsayılan) ==================== */
 :root {
   --radius: 0.625rem;
   --background: oklch(1 0 0);
@@ -93,17 +100,9 @@ html, body {
   --chart-3: oklch(0.398 0.07 227.392);
   --chart-4: oklch(0.828 0.189 84.429);
   --chart-5: oklch(0.769 0.188 70.08);
-  --sidebar: hsl(0 0% 98%);
-  --sidebar-foreground: hsl(0, 0%, 0%);
-  --sidebar-primary: hsl(240 5.9% 10%);
-  --sidebar-primary-foreground: hsl(0 0% 98%);
-  --sidebar-accent: hsl(240 4.8% 95.9%);
-  --sidebar-accent-foreground: hsl(240 5.9% 10%);
-  --sidebar-border: hsl(220 13% 91%);
-  --sidebar-ring: hsl(0, 0%, 100%);
 }
 
-.light {
+.light.default {
   --background: oklch(1 0 0);
   --foreground: oklch(0.145 0 0);
   --card: oklch(0.98 0 0);
@@ -122,22 +121,9 @@ html, body {
   --border: oklch(0.9 0 0);
   --input: oklch(0.92 0 0);
   --ring: oklch(0.5 0 0);
-  --chart-1: oklch(0.646 0.222 41.116);
-  --chart-2: oklch(0.6 0.118 184.704);
-  --chart-3: oklch(0.398 0.07 227.392);
-  --chart-4: oklch(0.828 0.189 84.429);
-  --chart-5: oklch(0.769 0.188 70.08);
-  --sidebar: hsl(0 0% 98%);
-  --sidebar-foreground: hsl(0, 0%, 0%);
-  --sidebar-primary: hsl(240 5.9% 10%);
-  --sidebar-primary-foreground: hsl(0 0% 98%);
-  --sidebar-accent: hsl(240 4.8% 95.9%);
-  --sidebar-accent-foreground: hsl(240 5.9% 10%);
-  --sidebar-border: hsl(220 13% 91%);
-  --sidebar-ring: hsl(0, 0%, 100%);
 }
 
-.dark {
+.dark.default {
   --background: oklch(0.145 0 0);
   --foreground: oklch(0.985 0 0);
   --card: oklch(0.205 0 0);
@@ -156,30 +142,252 @@ html, body {
   --border: oklch(1 0 0 / 10%);
   --input: oklch(1 0 0 / 15%);
   --ring: oklch(0.556 0 0);
-  --chart-1: oklch(0.488 0.243 264.376);
-  --chart-2: oklch(0.696 0.17 162.48);
-  --chart-3: oklch(0.769 0.188 70.08);
-  --chart-4: oklch(0.627 0.265 303.9);
-  --chart-5: oklch(0.645 0.246 16.439);
-  --sidebar: hsl(0, 0%, 0%);
-  --sidebar-foreground: hsl(240 4.8% 95.9%);
-  --sidebar-primary: hsl(0, 0%, 100%);
-  --sidebar-primary-foreground: hsl(0 0% 100%);
-  --sidebar-accent: hsl(0, 0%, 0%);
-  --sidebar-accent-foreground: hsl(240 4.8% 95.9%);
-  --sidebar-border: hsl(0, 0%, 0%);
-  --sidebar-ring: hsl(0, 0%, 100%);
 }
 
-@layer base {
-  * {
-    @apply border-border outline-ring/50;
-  }
-  body {
-    @apply bg-background text-foreground transition-colors duration-300;
-  }
+/* ==================== ROSE THEME (Pembe-Kırmızı) ==================== */
+.light.rose {
+  --background: oklch(0.99 0.01 350);
+  --foreground: oklch(0.2 0.05 350);
+  --card: oklch(0.98 0.015 350);
+  --card-foreground: oklch(0.2 0.05 350);
+  --popover: oklch(1 0.01 350);
+  --popover-foreground: oklch(0.2 0.05 350);
+  --primary: oklch(0.55 0.22 350);
+  --primary-foreground: oklch(0.99 0.01 350);
+  --secondary: oklch(0.96 0.02 350);
+  --secondary-foreground: oklch(0.3 0.05 350);
+  --muted: oklch(0.95 0.02 350);
+  --muted-foreground: oklch(0.5 0.05 350);
+  --accent: oklch(0.97 0.03 350);
+  --accent-foreground: oklch(0.25 0.05 350);
+  --destructive: oklch(0.577 0.245 27.325);
+  --border: oklch(0.88 0.02 350);
+  --input: oklch(0.92 0.02 350);
+  --ring: oklch(0.55 0.22 350);
 }
 
+.dark.rose {
+  --background: oklch(0.15 0.03 350);
+  --foreground: oklch(0.95 0.02 350);
+  --card: oklch(0.2 0.04 350);
+  --card-foreground: oklch(0.95 0.02 350);
+  --popover: oklch(0.2 0.04 350);
+  --popover-foreground: oklch(0.95 0.02 350);
+  --primary: oklch(0.7 0.25 350);
+  --primary-foreground: oklch(0.15 0.03 350);
+  --secondary: oklch(0.25 0.04 350);
+  --secondary-foreground: oklch(0.95 0.02 350);
+  --muted: oklch(0.25 0.04 350);
+  --muted-foreground: oklch(0.65 0.05 350);
+  --accent: oklch(0.3 0.05 350);
+  --accent-foreground: oklch(0.95 0.02 350);
+  --destructive: oklch(0.704 0.191 22.216);
+  --border: oklch(0.3 0.04 350);
+  --input: oklch(0.28 0.04 350);
+  --ring: oklch(0.7 0.25 350);
+}
+
+/* Sidebar paletini tema ile birebir eşitle */
+.light,
+.dark,
+.oled,
+.soft,
+.rose,
+.sea,
+.sun,
+.fire {
+  --sidebar: var(--background);
+  --sidebar-foreground: var(--foreground);
+  --sidebar-border: var(--border);
+  --sidebar-ring: var(--ring);
+  --sidebar-primary: var(--primary);
+  --sidebar-primary-foreground: var(--primary-foreground);
+  --sidebar-accent: var(--accent);
+  --sidebar-accent-foreground: var(--accent-foreground);
+}
+
+/* Sidebar opaklık düzeltmesi: tüm katmanlarda arka planı tam opak yap */
+[data-slot="sidebar"],
+[data-slot="sidebar-inner"],
+[data-slot="sidebar-container"],
+[data-slot="sidebar-content"],
+[data-slot="sidebar-header"],
+[data-slot="sidebar-footer"],
+[data-slot="sidebar-gap"],
+[data-slot="sidebar-wrapper"],
+[data-sidebar="sidebar"],
+[data-sidebar="sidebar-wrapper"],
+[data-sidebar="sidebar-container"],
+[data-sidebar="content"],
+[data-sidebar="header"],
+[data-sidebar="footer"],
+[data-sidebar="sidebar"][data-mobile="true"] {
+  background-color: hsl(var(--background)) !important;
+  color: hsl(var(--foreground)) !important;
+  backdrop-filter: none !important;
+  -webkit-backdrop-filter: none !important;
+}
+
+/* Shadcn bg-sidebar utility ve inset wrapper'ını tam opak yap */
+.bg-sidebar,
+.has-data-\[variant\=inset\]\:bg-sidebar {
+  background-color: hsl(var(--background)) !important;
+}
+.text-sidebar-foreground {
+  color: hsl(var(--foreground)) !important;
+}
+/* ==================== SEA/SKY THEME (Mavi Tonları) ==================== */
+.light.sea {
+  --background: oklch(0.99 0.01 220);
+  --foreground: oklch(0.2 0.05 220);
+  --card: oklch(0.98 0.015 220);
+  --card-foreground: oklch(0.2 0.05 220);
+  --popover: oklch(1 0.01 220);
+  --popover-foreground: oklch(0.2 0.05 220);
+  --primary: oklch(0.5 0.18 220);
+  --primary-foreground: oklch(0.99 0.01 220);
+  --secondary: oklch(0.96 0.02 220);
+  --secondary-foreground: oklch(0.3 0.05 220);
+  --muted: oklch(0.95 0.02 220);
+  --muted-foreground: oklch(0.5 0.05 220);
+  --accent: oklch(0.97 0.03 220);
+  --accent-foreground: oklch(0.25 0.05 220);
+  --destructive: oklch(0.577 0.245 27.325);
+  --border: oklch(0.88 0.02 220);
+  --input: oklch(0.92 0.02 220);
+  --ring: oklch(0.5 0.18 220);
+}
+
+.dark.sea {
+  --background: oklch(0.15 0.03 220);
+  --foreground: oklch(0.95 0.02 220);
+  --card: oklch(0.2 0.04 220);
+  --card-foreground: oklch(0.95 0.02 220);
+  --popover: oklch(0.2 0.04 220);
+  --popover-foreground: oklch(0.95 0.02 220);
+  --primary: oklch(0.65 0.2 220);
+  --primary-foreground: oklch(0.15 0.03 220);
+  --secondary: oklch(0.25 0.04 220);
+  --secondary-foreground: oklch(0.95 0.02 220);
+  --muted: oklch(0.25 0.04 220);
+  --muted-foreground: oklch(0.65 0.05 220);
+  --accent: oklch(0.3 0.05 220);
+  --accent-foreground: oklch(0.95 0.02 220);
+  --destructive: oklch(0.704 0.191 22.216);
+  --border: oklch(0.3 0.04 220);
+  --input: oklch(0.28 0.04 220);
+  --ring: oklch(0.65 0.2 220);
+}
+
+/* ==================== SUN THEME (Sarı-Turuncu) ==================== */
+.light.sun {
+  --background: oklch(0.99 0.01 60);
+  --foreground: oklch(0.2 0.05 60);
+  --card: oklch(0.98 0.015 60);
+  --card-foreground: oklch(0.2 0.05 60);
+  --popover: oklch(1 0.01 60);
+  --popover-foreground: oklch(0.2 0.05 60);
+  --primary: oklch(0.6 0.2 60);
+  --primary-foreground: oklch(0.99 0.01 60);
+  --secondary: oklch(0.96 0.02 60);
+  --secondary-foreground: oklch(0.3 0.05 60);
+  --muted: oklch(0.95 0.02 60);
+  --muted-foreground: oklch(0.5 0.05 60);
+  --accent: oklch(0.97 0.03 60);
+  --accent-foreground: oklch(0.25 0.05 60);
+  --destructive: oklch(0.577 0.245 27.325);
+  --border: oklch(0.88 0.02 60);
+  --input: oklch(0.92 0.02 60);
+  --ring: oklch(0.6 0.2 60);
+}
+
+.dark.sun {
+  --background: oklch(0.15 0.03 60);
+  --foreground: oklch(0.95 0.02 60);
+  --card: oklch(0.2 0.04 60);
+  --card-foreground: oklch(0.95 0.02 60);
+  --popover: oklch(0.2 0.04 60);
+  --popover-foreground: oklch(0.95 0.02 60);
+  --primary: oklch(0.75 0.22 60);
+  --primary-foreground: oklch(0.15 0.03 60);
+  --secondary: oklch(0.25 0.04 60);
+  --secondary-foreground: oklch(0.95 0.02 60);
+  --muted: oklch(0.25 0.04 60);
+  --muted-foreground: oklch(0.65 0.05 60);
+  --accent: oklch(0.3 0.05 60);
+  --accent-foreground: oklch(0.95 0.02 60);
+  --destructive: oklch(0.704 0.191 22.216);
+  --border: oklch(0.3 0.04 60);
+  --input: oklch(0.28 0.04 60);
+  --ring: oklch(0.75 0.22 60);
+}
+
+/* ==================== FIRE THEME (Turuncu-Kırmızı) ==================== */
+.light.fire {
+  --background: oklch(0.99 0.01 25);
+  --foreground: oklch(0.2 0.05 25);
+  --card: oklch(0.98 0.015 25);
+  --card-foreground: oklch(0.2 0.05 25);
+  --popover: oklch(1 0.01 25);
+  --popover-foreground: oklch(0.2 0.05 25);
+  --primary: oklch(0.58 0.24 25);
+  --primary-foreground: oklch(0.99 0.01 25);
+  --secondary: oklch(0.96 0.02 25);
+  --secondary-foreground: oklch(0.3 0.05 25);
+  --muted: oklch(0.95 0.02 25);
+  --muted-foreground: oklch(0.5 0.05 25);
+  --accent: oklch(0.97 0.03 25);
+  --accent-foreground: oklch(0.25 0.05 25);
+  --destructive: oklch(0.577 0.245 27.325);
+  --border: oklch(0.88 0.02 25);
+  --input: oklch(0.92 0.02 25);
+  --ring: oklch(0.58 0.24 25);
+}
+
+.dark.fire {
+  --background: oklch(0.15 0.03 25);
+  --foreground: oklch(0.95 0.02 25);
+  --card: oklch(0.2 0.04 25);
+  --card-foreground: oklch(0.95 0.02 25);
+  --popover: oklch(0.2 0.04 25);
+  --popover-foreground: oklch(0.95 0.02 25);
+  --primary: oklch(0.72 0.26 25);
+  --primary-foreground: oklch(0.15 0.03 25);
+  --secondary: oklch(0.25 0.04 25);
+  --secondary-foreground: oklch(0.95 0.02 25);
+  --muted: oklch(0.25 0.04 25);
+  --muted-foreground: oklch(0.65 0.05 25);
+  --accent: oklch(0.3 0.05 25);
+  --accent-foreground: oklch(0.95 0.02 25);
+  --destructive: oklch(0.704 0.191 22.216);
+  --border: oklch(0.3 0.04 25);
+  --input: oklch(0.28 0.04 25);
+  --ring: oklch(0.72 0.26 25);
+}
+
+/* ==================== DARK MODE VARIANTS ==================== */
+
+/* OLED (Tam Siyah) */
+.dark.oled {
+  --background: oklch(0 0 0);
+  --card: oklch(0.08 0 0);
+  --popover: oklch(0.08 0 0);
+  --border: oklch(0.15 0 0);
+  --input: oklch(0.12 0 0);
+}
+
+/* Soft Dark (Göz Yormayan) */
+.dark.soft {
+  --background: oklch(0.2 0 0);
+  --card: oklch(0.25 0 0);
+  --popover: oklch(0.25 0 0);
+  --muted: oklch(0.3 0 0);
+  --accent: oklch(0.3 0 0);
+  --border: oklch(0.35 0 0);
+  --input: oklch(0.32 0 0);
+}
+
+/* ==================== SIDEBAR STYLES ==================== */
 @layer base {
   :root {
     --sidebar: oklch(0.985 0 0);
@@ -215,6 +423,15 @@ html, body {
   }
 }
 
+@layer base {
+  * {
+    @apply border-border outline-ring/50;
+  }
+  body {
+    @apply bg-background text-foreground transition-colors duration-300;
+  }
+}
+
 /* Sidebar arkaplan şeffaflığı */
 [data-sidebar="sidebar"] {
   background: transparent !important;
@@ -242,16 +459,13 @@ html, body {
   background: transparent !important;
 }
 
-/* ✨ YUMUŞAK SIDEBAR ANIMASYONU - DÜZELTİLMİŞ ✨ */
-
-/* Sidebar wrapper ve tüm parent elementler */
+/* YUMUŞAK SIDEBAR ANIMASYONU */
 .group[data-collapsible="offcanvas"],
 .group[data-collapsible="icon"],
 .group\/sidebar-wrapper {
   transition: all 400ms ease-in-out !important;
 }
 
-/* Ana sidebar - left pozisyonu ile kayma */
 [data-sidebar="sidebar"] {
   transition: left 400ms ease-in-out, 
               transform 400ms ease-in-out,
@@ -259,30 +473,25 @@ html, body {
               opacity 400ms ease-in-out !important;
 }
 
-/* Sidebar kapalıyken */
 [data-state="collapsed"] [data-sidebar="sidebar"] {
   left: -280px !important;
 }
 
-/* Sidebar açıkken */
 [data-state="expanded"] [data-sidebar="sidebar"] {
   left: 0 !important;
 }
 
-/* İçerik animasyonlarını kaldır (spring efektini önlemek için) */
 [data-sidebar="sidebar"] > *,
 [data-sidebar="header"],
 [data-sidebar="content"] {
   transition: none !important;
 }
 
-/* SidebarInset yumuşak genişleme */
 [data-sidebar="inset"] {
   transition: margin-left 400ms ease-in-out,
               width 400ms ease-in-out;
 }
 
-/* Sidebar trigger butonu animasyonu */
 button[data-sidebar="trigger"] {
   transition: all 200ms ease-in-out;
 }
@@ -295,7 +504,6 @@ button[data-sidebar="trigger"]:active {
   transform: scale(0.95);
 }
 
-/* Accordion animasyonları */
 [data-radix-accordion-content] {
   transition: height 300ms ease-in-out;
 }
@@ -312,14 +520,16 @@ button[data-sidebar="trigger"]:active {
   }
 }
 
-/* Sidebar için özel class ekleyelim */
 .sidebar-slide-transition {
   transition: transform 400ms ease-in-out !important;
 }
 
-/* Genel class'lar */
 * {
   transition-property: background-color, border-color, color;
   transition-duration: 200ms;
   transition-timing-function: ease-in-out;
+}
+
+button {
+  cursor: pointer;
 }

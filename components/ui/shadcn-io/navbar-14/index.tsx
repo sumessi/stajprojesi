@@ -6,11 +6,11 @@ import { LayoutGridIcon, PlusIcon, SearchIcon } from 'lucide-react';
 import InfoMenu from './InfoMenu';
 import NotificationMenu from './NotificationMenu';
 import SettingsMenu from './SettingsMenu';
-import { Button } from '@repo/shadcn-ui/components/ui/button';
-import { Input } from '@repo/shadcn-ui/components/ui/input';
-import { Label } from '@repo/shadcn-ui/components/ui/label';
-import { Switch } from '@repo/shadcn-ui/components/ui/switch';
-import { cn } from '@repo/shadcn-ui/lib/utils';
+import { Button } from '@/components/ui/button';
+import { Input } from '@/components/ui/input';
+//import { Label } from '@/components/ui/label';
+import { Toggle } from '@/components/ui/toggle';
+import { cn } from '@/lib/utils';
 
 // Types
 export interface Navbar14Props extends React.HTMLAttributes<HTMLElement> {
@@ -98,14 +98,13 @@ export const Navbar14 = React.forwardRef<HTMLElement, Navbar14Props>(
             {/* Test mode */}
             {showTestMode && (
               <div className="inline-flex items-center gap-2 max-md:hidden">
-                <Label htmlFor={`switch-${id}`} className="text-sm font-medium">
+                <label htmlFor={`switch-${id}`} className="text-sm font-medium">
                   Test mode
-                </Label>
-                <Switch
-                  id={`switch-${id}`}
+                </label>
+                <Toggle
+                  id={`toggle-${id}`}
                   checked={testModeValue}
                   onCheckedChange={handleTestModeChange}
-                  className="h-5 w-8 [&_span]:size-4 data-[state=checked]:[&_span]:translate-x-3 data-[state=checked]:[&_span]:rtl:-translate-x-3"
                   aria-label="Toggle test mode"
                 />
               </div>

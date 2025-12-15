@@ -2,7 +2,7 @@
 
 import * as React from 'react';
 import { InfoIcon } from 'lucide-react';
-import { Button } from '@repo/shadcn-ui/components/ui/button';
+import { Button } from '@/components/ui/button';
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -10,7 +10,7 @@ import {
   DropdownMenuLabel,
   DropdownMenuSeparator,
   DropdownMenuTrigger,
-} from '@repo/shadcn-ui/components/ui/dropdown-menu';
+} from '@/components/ui/dropdown-menu';
 
 export interface InfoMenuProps {
   onItemClick?: (item: string) => void;

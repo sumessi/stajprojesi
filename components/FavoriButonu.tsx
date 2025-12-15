@@ -12,8 +12,25 @@ export default function FavoriButonu({ id, className = "" }: FavoriButonuProps) 
 
   // Sayfa yüklendiğinde favori durumunu kontrol et
   useEffect(() => {
-    const favoriler = JSON.parse(localStorage.getItem('favorites') || '[]');
-    setFavorimi(favoriler.includes(id));
+    const checkFavorite = () => {
+      const favoriler = JSON.parse(localStorage.getItem('favorites') || '[]');
+      setFavorimi(favoriler.includes(id));
+    };
+
+    checkFavorite();
+
+    const handleStorageChange = (e: Event) => {
+      checkFavorite();
+    };
+
+    // Custom event listener ekle
+    window.addEventListener('favoritesChanged', handleStorageChange);
+    window.addEventListener('storage', handleStorageChange);
+
+    return () => {
+      window.removeEventListener('favoritesChanged', handleStorageChange);
+      window.removeEventListener('storage', handleStorageChange);
+    };
   }, [id]);
 
   const toggleFavori = (e: React.MouseEvent) => {
@@ -33,8 +50,8 @@ export default function FavoriButonu({ id, className = "" }: FavoriButonuProps) 
       setFavorimi(true);
     }
 
-    // Storage event'ini manuel tetikle (aynı sekmedeki diğer componentler için)
-    window.dispatchEvent(new Event('storage'));
+    // Custom event dispatch et
+    window.dispatchEvent(new CustomEvent('favoritesChanged'));
   };
 
   return (
